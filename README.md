@@ -4,13 +4,12 @@ A web application for managing customer orders in restaurant, built with a .NET 
 - 📜 **API documentation with Swagger** – Full and interactive API documentation provided by Swagger, allowing users to test endpoints.
 - 🔗 **Easy API integration** – Simple and fast integration with our API, with access to Swagger documentation.
 - ⚙️ **Real-time API testing** – Test our API in real-time directly from the Swagger documentation interface.
-
 ## :mechanical_leg: Installation
 ### :pushpin: Prerequisites
 
 - **.NET SDK**: netcoreapp2.1. [Download .NET](https://dotnet.microsoft.com/en-us/download/dotnet/2.1/)
-- **Node.js & npm** [Download Nodje.js & npm](https://nodejs.org/):
-- **MySql**  [MySQL](https://dev.mysql.com/downloads/).
+- **Node.js & npm** [Download Nodje.js & npm](https://nodejs.org/)
+- **MySql**  [MySQL](https://dev.mysql.com/downloads/)
 ### 🔧 Steps
 
 Install dotnet-ef tools:
@@ -52,7 +51,7 @@ The API endpoints can be accessed at:
 ```bash
 https://localhost:44389/swagger
 ```
-### FrontEnd
+### Frontend
 Go to Client folder:
 ```bash
 cd MyRestaurant.Client
@@ -68,4 +67,5 @@ https://localhost:44360/
 
 
 ## :rocket: Future Improvements
-[] Update app from .Net Core 2.1 to .NET 8
+- [ ] Update app from .Net Core 2.1 to .NET 8
+- [ ] CLI Feature for Inserting Random Data
