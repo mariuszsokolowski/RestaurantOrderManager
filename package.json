@@ -1,0 +1,23 @@
+{
+  "name": "MyRestaurant",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.4",
+    "vue-template-compiler": "^2.5.17",
+    "vuetify": "^1.1.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mariuszsokolowski@bitbucket.org/mariuszsokolowski/pracadyplomowa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/mariuszsokolowski/pracadyplomowa#readme",
+  "description": ""
+}
