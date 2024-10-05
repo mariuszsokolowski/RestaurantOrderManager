@@ -1,4 +1,4 @@
-#  :hammer_and_wrench: MyRestaurant
+#  :hammer_and_wrench: RestaurantOrderManager
 A web application for managing customer orders in restaurant, built with a .NET Core API (backend) and a Vue.js (frontend) within an ASP.NET application. This app allows users to place, track, and manage orders seamlessly.
 ## ✨ Features
 - 📜 **API documentation with Swagger** – Full and interactive API documentation provided by Swagger, allowing users to test endpoints.
