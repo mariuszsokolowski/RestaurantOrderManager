@@ -4,7 +4,7 @@ A web application for managing customer orders in restaurant, built with a .NET 
 - 📜 **API documentation with Swagger** – Full and interactive API documentation provided by Swagger, allowing users to test endpoints.
 - 🔗 **Easy API integration** – Simple and fast integration with our API, with access to Swagger documentation.
 - ⚙️ **Real-time API testing** – Test our API in real-time directly from the Swagger documentation interface.
--📡 Real-time communication with SignalR – Enable real-time, two-way communication between server and clients using SignalR. This allows for instant updates and notifications, perfect for scenarios such as live order updates or notifications.
+- 📡 Real-time communication with SignalR – Enable real-time, two-way communication between server and clients using SignalR. This allows for instant updates and notifications, perfect for scenarios such as live order updates or notifications.
 
 ## :mechanical_leg: Installation
 ### :pushpin: Prerequisites
