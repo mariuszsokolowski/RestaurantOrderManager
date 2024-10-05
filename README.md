@@ -69,3 +69,5 @@ https://localhost:44360/
 ## :rocket: Future Improvements
 - [ ] Update app from .Net Core 2.1 to .NET 8
 - [ ] CLI Feature for Inserting Random Data
+- [ ] Change language (with comments) to EN
+- [ ] Add feature to multi language
