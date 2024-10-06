@@ -15,6 +15,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using MyRestaurant.Data.Entities;
 using MyRestaurant.API.Enums;
+using Bogus;
+using System.Reflection;
+using MyRestaurant.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyRestaurant.API
 {
@@ -126,7 +130,7 @@ namespace MyRestaurant.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider _serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider _serviceProvider, DBContext context)
         {
             if (env.IsDevelopment())
             {
@@ -157,7 +161,7 @@ namespace MyRestaurant.API
             });
 
             if (!String.IsNullOrEmpty(_command))
-                SeedByCLI(_serviceProvider);
+                SeedByCLI(_serviceProvider, context);
 
         }
 
@@ -177,7 +181,7 @@ namespace MyRestaurant.API
         /// Configures the CLI commands.
         /// </summary>
         /// <param name="app">The command line application instance.</param>
-        public void SeedByCLI(IServiceProvider serviceProvider)
+        public void SeedByCLI(IServiceProvider serviceProvider, DBContext context)
         {
             try
             {
@@ -194,7 +198,19 @@ namespace MyRestaurant.API
                 }
                 else if (_command == SeedDataCommandEnums.SeedData.ToString())
                 {
+                    using (var faker = new Fakers.Faker())
+                    {
+                        for (int i = 0; i < 200; i++)
+                        {
+                            var menuEntity = faker.MenuFaker();
+                            context.Set<Menu>().Add(menuEntity);
 
+                            var notificationEntity = faker.NotificationFaker();
+                            context.Set<Notification>().Add(notificationEntity);
+
+                        }
+                        context.SaveChanges();
+                    }
                 }
                 else if (_command == SeedDataCommandEnums.SeedUsers.ToString())
                 {
@@ -211,6 +227,7 @@ namespace MyRestaurant.API
             }
         }
 
+    
         private async void SeedUsers(IServiceProvider serviceProvider)
         {
             //initializing custom roles 
