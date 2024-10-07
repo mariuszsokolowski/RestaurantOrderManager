@@ -54,7 +54,7 @@ namespace MyRestaurant.API.Controllers
 
             if (result.Succeeded)
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Login);
+                var appUser = _userManager.Users.SingleOrDefault(r => r.UserName == model.Login);
                 if (appUser.IsBlocked)
                     return NotFound("Użytkownik zablokowany");
                 //var checkRole = await _signInManager.UserManager.AddToRoleAsync(appUser,"Administrator");

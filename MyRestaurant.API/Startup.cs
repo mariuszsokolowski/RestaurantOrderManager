@@ -75,12 +75,13 @@ namespace MyRestaurant.API
                 c.IncludeXmlComments(xmlPath);
 
             });
-
+            var allowOrigins = Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
+            Console.WriteLine($"Allow Orgin {string.Join(", ", allowOrigins)}");
             services.AddCors(options => options.AddPolicy("MyPolicy",
          builder =>
          {
              builder.AllowAnyMethod().AllowAnyHeader()
-                    .WithOrigins($"{Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>()}")
+                    .WithOrigins(string.Join(", ", allowOrigins))
                     .AllowCredentials()
                     .AllowAnyHeader()
                     .AllowAnyMethod(); ;
@@ -198,18 +199,37 @@ namespace MyRestaurant.API
                 }
                 else if (_command == SeedDataCommandEnums.SeedData.ToString())
                 {
-                    using (var faker = new Fakers.Faker())
+                    using (var faker = new Fakers.Faker(context))
                     {
-                        for (int i = 0; i < 200; i++)
+                        for (int i = 0; i < 20; i++)
                         {
-                            var menuEntity = faker.MenuFaker();
-                            context.Set<Menu>().Add(menuEntity);
+                            var menuFaker = faker.MenuFaker();
+                            context.Set<Menu>().Add(menuFaker);
+                            context.SaveChanges();
 
-                            var notificationEntity = faker.NotificationFaker();
-                            context.Set<Notification>().Add(notificationEntity);
+                            var notificationFaker = faker.NotificationFaker();
+                            context.Set<Notification>().Add(notificationFaker);
+                            context.SaveChanges();
+
+                            var orderFaker = faker.OrderFaker();
+                            var orderEntity = context.Set<Order>().Add(orderFaker);
+                            context.SaveChanges();
+
+                            var orderLineFaker = faker.OrderLineFaker(orderEntity.Entity.OrderId);
+                            var orderLineEntity = context.Set<OrderLine>().Add(orderLineFaker);
+                            context.SaveChanges();
+
+                            var orderRateFaker = faker.OrderRateFaker(orderLineEntity.Entity.OrderLineId);
+                            context.Set<OrderRate>().Add(orderRateFaker);
+                            context.SaveChanges();
+
+                            var waiterRateFaker = faker.WaiterRateFaker();
+                            context.Set<WaiterRate>().Add(waiterRateFaker);
+                            context.SaveChanges();
 
                         }
                         context.SaveChanges();
+                        Console.WriteLine("Faker data is added.");
                     }
                 }
                 else if (_command == SeedDataCommandEnums.SeedUsers.ToString())
@@ -228,7 +248,7 @@ namespace MyRestaurant.API
         }
 
     
-        private async void SeedUsers(IServiceProvider serviceProvider)
+        private  void SeedUsers(IServiceProvider serviceProvider)
         {
             //initializing custom roles 
             try
@@ -240,7 +260,7 @@ namespace MyRestaurant.API
                 {
                     try
                     {
-                        var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                        var roleExist =  RoleManager.RoleExistsAsync(roleName).Result;
 
                         if (roleExist == false)
                         {
@@ -258,24 +278,45 @@ namespace MyRestaurant.API
                         Console.WriteLine($"Error when created Role {e.Message}");
                     }
                 }
-                //Here you could create a super user who will maintain the web app
-                var poweruser = new User
-                {
-                    UserName = Configuration["AdminSettings:UserName"],
-                    Email = Configuration["AdminSettings:UserEmail"],
-                };
-                //Ensure you have these values in your appsettings.json file
-                string userPWD = Configuration["AdminSettings:UserPassword"];
-                var _user = await UserManager.FindByEmailAsync(Configuration["AdminSettings:UserEmail"]);
+                #region Admin
 
-                if (_user == null)
+              
+
+                var _userAdmin =  UserManager.FindByIdAsync(Configuration["AdminSettings:AdminUserEmail"]).Result;
+
+                if (_userAdmin == null)
                 {
-                    var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
+                    var poweruser = new User
+                    {
+                        UserName = Configuration["AdminSettings:AdminUserName"],
+                        Email = Configuration["AdminSettings:AdminUserEmail"],
+                    };
+                    string userPWD = Configuration["AdminSettings:AdminUserPassword"];
+                    var createPowerUser =  UserManager.CreateAsync(poweruser, userPWD).Result;
                     if (createPowerUser.Succeeded)
                     {
-                        await UserManager.AddToRoleAsync(poweruser, "Administrator");
+                         UserManager.AddToRoleAsync(poweruser, "Administrator").Wait();
                     }
                 }
+                var _userWaiter =  UserManager.FindByEmailAsync(Configuration["AdminSettings:WaiterUserEmail"]).Result;
+
+                if (_userAdmin == null)
+                {
+                    var poweruser = new User
+                    {
+                        UserName = Configuration["AdminSettings:WaiterUserName"],
+                        Email = Configuration["AdminSettings:WaiterUserEmail"],
+                    };
+                    string userPWD = Configuration["AdminSettings:WaiterUserPassword"];
+                    var createPowerUser =  UserManager.CreateAsync(poweruser, userPWD).Result;
+                    if (createPowerUser.Succeeded)
+                    {
+                         UserManager.AddToRoleAsync(poweruser, "Waiter").Wait();
+                    }
+                }
+                #endregion
+
+
             }
             catch (Exception e)
             {
