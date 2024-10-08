@@ -40,36 +40,52 @@ dotnet-ef database update
 ## 📚 Usage
 ### API
 Go to API folder:
-```bash
+```cmd
 cd MyRestaurant.API
 ```
 
 Run app:
-```bash
+```cmd
 dotnet run
 ```
 
 The API endpoints can be accessed at:
-```bash
+```cmd
 https://localhost:44389/swagger
 ```
 ### Frontend
 Go to Client folder:
-```bash
+```cmd
 cd MyRestaurant.Client
 ```
 Run app:
-```bash
+```cmd
 dotnet run
 ```
 Once the API and frontend are running, you can access the application at:
-```bash
+```cmd
 https://localhost:44360/
 ```
+### Seed data
 
+The following commands are available for the CLI:
+
+1. **ShowCommands**
+   - **Description**: Displays all possible commands that can be used in the CLI.
+   - **Usage**:
+ ```cmd
+dotnet run seed=ShowCommands
+```
+
+2. **SeedUsers**
+   - **Description**: Seeds predefined users into the database. This is useful for initializing the application with default users for testing or administrative purposes.
+   - **Usage**:
+```cmd
+dotnet run seed=SeedUsers
+```
 
 ## :rocket: Future Improvements
 - [ ] Update app from .Net Core 2.1 to .NET 8
 - [ ] CLI Feature for Inserting Random Data
-- [ ] Change language (with comments) to EN
+- [ ] Change language (including comments) to EN
 - [ ] Add feature to multi language
