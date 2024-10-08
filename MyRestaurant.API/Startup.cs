@@ -199,6 +199,10 @@ namespace MyRestaurant.API
                 }
                 else if (_command == SeedDataCommandEnums.SeedData.ToString())
                 {
+                    // If users is not exist add user by SeedUsers
+                    if (context.Set<User>().Count()<2)
+                        SeedUsers(serviceProvider);
+
                     using (var faker = new Fakers.Faker(context))
                     {
                         for (int i = 0; i < 20; i++)

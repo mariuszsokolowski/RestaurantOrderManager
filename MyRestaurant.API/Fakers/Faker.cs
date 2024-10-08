@@ -35,8 +35,8 @@ namespace MyRestaurant.API.Fakers
                      .RuleFor(o => o.Name, f => f.Commerce.ProductName())
                     .RuleFor(o => o.Description, f => f.Commerce.ProductDescription())
                     .RuleFor(o => o.Rating, f => f.Random.Int(1, 5) + f.Random.Decimal())
-                    .RuleFor(o => o.Price, f => f.Random.Int(1, 100000) )
-                    .RuleFor(o=>o.Image, f=>f.Image.PicsumUrl())
+                    .RuleFor(o => o.Price, f => f.Random.Int(1, 100000))
+                    .RuleFor(o => o.Image, f => f.Image.PicsumUrl())
                     .RuleFor(o => o.Promotion, f => f.Random.Bool())
                     .RuleFor(o => o.Inactive, f => f.Random.Bool());
             return faker.Generate();
@@ -48,16 +48,31 @@ namespace MyRestaurant.API.Fakers
         /// <returns></returns>
         public Notification NotificationFaker()
         {
-            List<User> userList = _context.Set<User>().ToList();
+            List<User> userList = GetUserList();
+
             int userIndex = _rand.Next(0, userList.Count() - 1);
+
             var faker = new Faker<Notification>()
-                    //ToDo UserAssigned
-                    .RuleFor(o => o.CreateDate, f => f.Date.Past())
-                    .RuleFor(o => o.AssignedDate, f => f.Date.Past())
-                    .RuleFor(o => o.CloseDate, f => f.Date.Past())
+                    .RuleFor(o => o.CreateDate, f => f.Date.Past(1, DateTime.Now))
                     .RuleFor(o => o.UserSignId, userList[userIndex].Id);
 
-            return faker.Generate();
+            //Random generation of AssignUser to Notification entity.
+            if (_rand.Next(0, 2) > 0)
+            {
+                List<User> waiterList = GetUserList("Waiter");
+                int waiterIndex = _rand.Next(0, waiterList.Count() - 1);
+
+                faker.RuleFor(o => o.UserAssigned, f => waiterList[waiterIndex].Id)
+                    .RuleFor(o => o.AssignedDate, f => f.Date.Past(0));
+            }
+
+            //Random generation closeDate
+            if (_rand.Next(0, 2) > 0)
+            {
+                faker.RuleFor(o => o.CloseDate, f => f.Date.Past());
+            }
+            var result = faker.Generate();
+            return result;
         }
 
         #region Orders
@@ -67,22 +82,22 @@ namespace MyRestaurant.API.Fakers
         /// <returns></returns>
         public Order OrderFaker()
         {
-            var isClosed = _rand.Next(0, 1) == 1;
+            var isClosed = _rand.Next(0, 2) > 0;
             bool isCancel = false;
             if (!isClosed)
-                isCancel = _rand.Next(0, 1) == 1;
+                isCancel = _rand.Next(0, 2) > 0;
 
-            List<User> userList = GetUserList();
+            List<User> userList = GetUserList("Waiter");
             int userIndex = _rand.Next(0, userList.Count() - 1);
 
             var faker = new Faker<Order>()
-                    //ToDo UserAssigned
                     .RuleFor(o => o.DocTotal, f => f.Random.Int(1, 99999))
                     .RuleFor(o => o.PaymentMethod, f => Data.Enums.PaymentMethod.Gotówka)
                     .RuleFor(o => o.Cancel, isCancel)
                     .RuleFor(o => o.CreateDate, f => DateTime.Now)
                     .RuleFor(o => o.Close, isClosed)
                     .RuleFor(o => o.UserSignId, userList[userIndex].Id);
+
             if (isClosed)
                 faker
                 .RuleFor(o => o.CloseDate, f => f.Date.Past());
@@ -102,6 +117,7 @@ namespace MyRestaurant.API.Fakers
                     .RuleFor(o => o.Price, f => Convert.ToDouble(f.Commerce.Price()))
                     .RuleFor(o => o.Quantity, f => f.Random.Int(10, 999))
                     .RuleFor(o => o.MenuId, menuList[menuIndex].MenuId);
+
             return faker.Generate();
         }
         #endregion
@@ -121,7 +137,7 @@ namespace MyRestaurant.API.Fakers
                     .RuleFor(o => o.CreateDate, f => f.Date.Past())
                     .RuleFor(o => o.Rating, f => f.Random.Int(1, 5))
                     .RuleFor(o => o.Cancled, f => f.Random.Bool())
-                     .RuleFor(o => o.UserSign, userList[userIndex].Id);
+                    .RuleFor(o => o.UserSign, userList[userIndex].Id);
 
             return faker.Generate();
         }
@@ -155,12 +171,11 @@ namespace MyRestaurant.API.Fakers
         /// </summary>
         /// <param name="role">Add param to get users with Role</param>
         /// <returns></returns>
-        private List<User> GetUserList(string role ="")
+        private List<User> GetUserList(string role = "")
         {
-            List<User> result = _context.Set<User>().Where(x =>String.IsNullOrEmpty(role) || x.UserRoles.Any(u => u.Role.Name == role )).ToList();
+            List<User> result = _context.Set<User>().Where(x => String.IsNullOrEmpty(role) || x.UserRoles.Any(u => u.Role.Name == role)).ToList();
             return result;
         }
-
 
         public void Dispose()
         {
