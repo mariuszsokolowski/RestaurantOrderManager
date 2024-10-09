@@ -83,6 +83,12 @@ dotnet run seed=ShowCommands
 ```cmd
 dotnet run seed=SeedUsers
 ```
+3. **SeedData**
+   - **Description**: Seeds predefined users and fake data to all tables into the database. 
+   - **Usage**:
+```cmd
+dotnet run seed=SeedData
+```
 
 ## :rocket: Future Improvements
 - [ ] Update app from .Net Core 2.1 to .NET 8
