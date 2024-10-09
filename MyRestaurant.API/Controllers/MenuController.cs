@@ -41,7 +41,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobieranie listy Menu
+        /// Get menu list
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
@@ -54,7 +54,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobieranie Menu po polu MenuId
+        /// Get menu
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -68,7 +68,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Dodawanie nowego menu
+        /// Add menu
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -98,7 +98,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Aktualizacja menu
+        /// Update menu
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
@@ -128,7 +128,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Odblokowanie menu
+        /// Unlock menu
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -156,7 +156,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Zablokowanie Menu
+        /// Deactivation Menu
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -184,7 +184,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Aktualizacja zdjęcia Menu
+        /// Update menu image
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -223,7 +223,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Usunięcie Menu
+        /// Delete menu
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -236,7 +236,7 @@ namespace MyRestaurant.API.Controllers
             {
                 if (repoOrderLine.All.Where(x => x.MenuId == id).Count() > 0)
                 {
-                    return NotFound("Nie można usunąć tego menu. Istnieją powiązania.");
+                    return NotFound("This menu cannot be deleted. There are bindings.");
                 }
 
                 repoMenu.Delete(id);
@@ -252,7 +252,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie zdjęcia Menu
+        /// Get menu image
         /// </summary>
         /// <param name="imgName"></param>
         /// <returns></returns>

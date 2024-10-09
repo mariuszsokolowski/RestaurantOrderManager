@@ -41,7 +41,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Logowanie do systemu
+        /// Login to system
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -68,7 +68,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Wylogowanie z systemu
+        /// Logout from system
         /// </summary>
         /// <returns></returns>
         [HttpPost("Logout")]
@@ -88,7 +88,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Rejestracja do systemu
+        /// Register to system
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
