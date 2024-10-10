@@ -13,7 +13,7 @@
       :search="search"
       hide-actions
       class="elevation-1"
-      no-data-text="Brak zamówień do realizacji"
+      no-data-text="No orders available"
     >
       <template slot="items" slot-scope="props">
         <tr>
@@ -22,12 +22,12 @@
           <td>{{ props.item.UserSign.Name }}</td>
 
           <td class="justify-center">
-            <v-btn color="success" @click="done(props.item)">Zakończ</v-btn>
+            <v-btn color="success" @click="done(props.item)">Close</v-btn>
           </td>
         </tr>
         <tr v-for="line in props.item.OrderLines" style="background-color:#E8EAF6">
           <td>{{ line.Menu.Name }}</td>
-          <td colspan="5">Ilość: {{ line.Quantity }}</td>
+          <td colspan="5">Quantity: {{ line.Quantity }}</td>
         </tr>
       </template>
       <v-alert
@@ -35,7 +35,7 @@
         :value="true"
         color="error"
         icon="warning"
-      >Brak danych dla klucza: {{search}}.</v-alert>
+      >No data to key: {{search}}.</v-alert>
     </v-data-table>
   </div>
 </template>
@@ -64,8 +64,8 @@ export default {
         align: "left",
         value: "Id"
       },
-      { text: "Data utworzenia", value: "CreateDate" },
-      { text: "Lokalizacja", value: "UserSignId" },
+      { text: "Created Date", value: "CreateDate" },
+      { text: "Localization", value: "UserSignId" },
       { text: "", value: "Actions", sortable: false }
     ],
     dialog: false,
@@ -107,11 +107,9 @@ export default {
           this.orders = response.data;
         })
         .catch(function(error) {
-          console.log("lipa?");
           console.error(error);
         })
         .then(function() {
-          //console.log("zawsze");
         });
     },
 
@@ -121,7 +119,7 @@ export default {
       console.log(item);
       if (
         confirm(
-          "Czy na pewno checesz zakończyć zamówienie nr: " + item.OrderId + " ?"
+          "Are you sure to close order nr: " + item.OrderId + " ?"
         )
       ) {
         var config = {
@@ -161,7 +159,6 @@ export default {
             console.log(error);
           })
           .then(function() {
-            //console.log("zawsze");
           });
       }
       //If add new data
@@ -177,7 +174,6 @@ export default {
             console.log(error);
           })
           .then(function() {
-            //console.log("zawsze");
           });
       }
 
@@ -185,12 +181,12 @@ export default {
     },
 
     changeAvatar() {
-      if (confirm("Czy chcesz zamienić avatar?")) {
+      if (confirm("Do you want to change avatar?")) {
         document.getElementById("fileInput").click();
       }
     },
     onFileChange(event, item) {
-      if (confirm("Zaktualizować zdjęcie?")) {
+      if (confirm("Update image?")) {
         this.file = event.target.files[0];
         item.Avatar = this.file.name;
         this.saveFile();
@@ -220,7 +216,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nowa pozycja" : "Edycja pozycji";
+      return this.editedIndex === -1 ? "New item" : "Edit item";
     }
   }
 };

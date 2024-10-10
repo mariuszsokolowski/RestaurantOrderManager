@@ -34,7 +34,7 @@ export default {
         labels: this.dataChart.map(x => x.Name),
         datasets: [
           {
-            label: "Miesiące",
+            label: "Month",
             backgroundColor: "teal",
             data: this.dataChart.map(x => x.Total)
           }

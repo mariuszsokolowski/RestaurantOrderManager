@@ -27,7 +27,7 @@
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="editedItem.Name"
-                      label="Nazwa"
+                      label="Name"
                       :rules="nameRules"
                       ref="editedItem.Name"
                       required
@@ -36,7 +36,7 @@
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="editedItem.Description"
-                      label="Opis"
+                      label="Description"
                       :rules="descriptionRules"
                     ></v-text-field>
                   </v-flex>
@@ -47,13 +47,13 @@
                     <v-text-field
                       prepend-icon="attach_file"
                       v-model="editedItem.Image"
-                      label="Obrazek"
+                      label="Image"
                       @click.native="onFocus"
                       readonly="readonly"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-checkbox v-model="editedItem.Promotion" label="Promocja"></v-checkbox>
+                    <v-checkbox v-model="editedItem.Promotion" label="Promotion"></v-checkbox>
                   </v-flex>
 
                   <input
@@ -73,15 +73,15 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="close">Anuluj</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="save">Zapisz</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="close">Close</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-toolbar>
 
     <v-flex xs12 sm6 md4 style="margin-left:auto">
-      <v-text-field v-model="search" append-icon="search" label="Wyszukaj" single-line hide-details></v-text-field>
+      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
     </v-flex>
     <v-data-table
       :headers="headers"
@@ -125,7 +125,7 @@
         :value="true"
         color="error"
         icon="warning"
-      >Brak danych dla klucza: {{search}}.</v-alert>
+      >No data found to key: {{search}}.</v-alert>
     </v-data-table>
   </div>
 </template>
@@ -150,13 +150,13 @@ export default {
     dialog: false,
     headers: [
       {
-        text: "Nazwa",
+        text: "Name",
         align: "left",
         value: "Name"
       },
-      { text: "Opis", value: "Description" },
-      { text: "Cena", value: "Price" },
-      { text: "Obrazek", value: "Image" },
+      { text: "Description", value: "Description" },
+      { text: "Price", value: "Price" },
+      { text: "Image", value: "Image" },
       { text: "", value: "Name", sortable: false }
     ],
     menu: [],
@@ -178,14 +178,14 @@ export default {
     },
     ///Rules
     valid: true,
-    nameRules: [v => !!v || "Nazwa jest wymagana."],
-    descriptionRules: [v => !!v || "Opis jest wymagany."],
-    priceRules: [v => v > 0 || "Cena jest wymagana."]
+    nameRules: [v => !!v || "Name is requied."],
+      descriptionRules: [v => !!v || "Description is requied."],
+      priceRules: [v => v > 0 || "Price is requied."]
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nowa pozycja" : "Edycja pozycji";
+      return this.editedIndex === -1 ? "New item" : "Edit item";
     },
     nameErrors() {
       const errors = [];
@@ -223,7 +223,6 @@ export default {
           console.error(error);
         })
         .then(function() {
-          //console.log("zawsze");
         });
     },
     activateMenu(item) {
@@ -271,7 +270,7 @@ export default {
       };
       const index = this.menu.indexOf(item);
 
-      if (confirm('Czy na pewno usunąć tę pozycję: "' + item.Name + '" ?')) {
+        if (confirm('Are you sure you want to delete this item: "' + item.Name + '" ?')) {
         this.axios
           .delete(this.url + "?id=" + item.MenuId, config)
           .then(response => this.menu.splice(index, 1))
@@ -279,7 +278,6 @@ export default {
             this.enableSnackbar(error.response.data, "error");
           })
           .then(function() {
-            //console.log("zawsze");
           });
       }
     },
@@ -292,7 +290,7 @@ export default {
       }, 300);
     },
     onFileChange(event, item) {
-      if (confirm("Zaktualizować zdjęcie?")) {
+      if (confirm("Update image?")) {
         this.file = event.target.files[0];
 
         item.Image = this.file.name;
@@ -357,12 +355,12 @@ export default {
           this.fetchData();
           this.editedItem.Image =
             this.editedItem.ID + "." + this.file.name.split(".").pop();
-          this.snackbarText = "Zaktualizowano zdjęcie";
+          this.snackbarText = "Image has benn updated";
           this.snackbar = true;
           this.snackbarColor = "info";
         })
         .catch(function(error) {
-          alert("Blad podczas aktualizacji");
+          alert("Error during update");
         })
         .then(function() {});
     },

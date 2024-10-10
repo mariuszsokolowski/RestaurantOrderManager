@@ -43,13 +43,13 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click.native="dismissDialog">Anuluj</v-btn>
+              <v-btn color="blue darken-1" flat @click.native="dismissDialog">Cancel</v-btn>
               <v-btn
                 color="blue darken-1"
                 flat
                 @click.native="AddToShoppingCard"
                 v-show="this.$cookies.isKey('authToken')"
-              >Dodaj do koszyka</v-btn>
+              >Add to cart</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -60,12 +60,12 @@
         width="300"
         v-show="rateCollection.length>0 && rateItem.length<=0"
       >
-        <v-card-title class="headline" primary-title>Oceń nasze dania</v-card-title>
-        <v-card-text>Pomóż nam i oceń zamówione danie</v-card-text>
+        <v-card-title class="headline" primary-title>Rate our menu</v-card-title>
+        <v-card-text>Help us and rate the ordered menu</v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="justify-space-between">
-          <v-btn flat @click="cancelAllRate">Nie dziękuję</v-btn>
-          <v-btn color="primary" flat @click="startRating">Oceń</v-btn>
+          <v-btn flat @click="cancelAllRate">No thanks</v-btn>
+          <v-btn color="primary" flat @click="startRating">Rate</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -88,7 +88,7 @@
           </div>
         </v-card-title>
         <v-card-text>
-          <span>Pomóż nam i oceń zamówione danie</span>
+            <span>Help us and rate the ordered menu</span>
 
           <v-rating
             v-model="postRateItem.rating"
@@ -101,8 +101,8 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="justify-space-between">
-          <v-btn flat @click="cancelRate(item)">Nie dziękuję</v-btn>
-          <v-btn color="primary" flat @click="rate(item)">Oceń</v-btn>
+          <v-btn flat @click="cancelRate(item)">No thanks</v-btn>
+          <v-btn color="primary" flat @click="rate(item)">Rate</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -111,12 +111,12 @@
         width="300"
         v-show="rateWaiterCollection.length>0 && rateWaiterItem.length<=0"
       >
-        <v-card-title class="headline" primary-title>Oceń naszych pracowników</v-card-title>
-        <v-card-text>Pomóż nam i oceń naszych kelenrów</v-card-text>
+        <v-card-title class="headline" primary-title>Rate our employees</v-card-title>
+        <v-card-text>Help us and rate our employees</v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="justify-space-between">
-          <v-btn flat @click="cancelAllWaiterRate">Nie dziękuję</v-btn>
-          <v-btn color="primary" flat @click="startWaiterRating">Oceń</v-btn>
+          <v-btn flat @click="cancelAllWaiterRate">No thanks</v-btn>
+          <v-btn color="primary" flat @click="startWaiterRating">Rate</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -130,7 +130,7 @@
         <v-card-title class="headline" primary-title>
           <span style="margin: auto">{{ item.Waiter.Name }}</span>
         </v-card-title>
-        <v-card-text>Oceń naszego kelnera
+        <v-card-text>Rate our employee
           <v-rating
             v-model="postRateWaiterItem.rating"
             color="yellow darken-3"
@@ -142,8 +142,8 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="justify-space-between">
-          <v-btn flat @click="cancelWaiterRate(item)">Nie dziękuję</v-btn>
-          <v-btn color="primary" flat @click="rateWaiter(item)">Oceń</v-btn>
+          <v-btn flat @click="cancelWaiterRate(item)">No thanks</v-btn>
+          <v-btn color="primary" flat @click="rateWaiter(item)">Rate</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -164,7 +164,7 @@
                 v-model="item.Promotion"
                 style="float:left"
                 v-if="!item.Inactive"
-              >Promocja!
+              >Promotion
                 <v-icon right>star</v-icon>
               </v-chip>
 
@@ -181,7 +181,7 @@
                   class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text"
                   style="height: 100%;background-color:grey"
                 >
-                  <span v-if="item.Inactive" style="font-size:3vh">NIEDOSTĘPNE</span>
+                    <span v-if="item.Inactive" style="font-size:3vh">Unavailable</span>
                 </div>
               </v-expand-transition>
             </v-img>
@@ -196,7 +196,7 @@
                 half-increments
                 hover
               ></v-rating>
-              <v-card-text v-show="item.Rating<=0" color="success">Bądź pierwszy i oceń danie</v-card-text>
+              <v-card-text v-show="item.Rating<=0" color="success">Be the first to rate this menu</v-card-text>
             </div>
             <v-card-text class="pt-4" style="position: relative;">
               <v-btn
@@ -280,9 +280,9 @@ export default {
       itemCounter: 1,
       DialogItem: "",
       InputNumberRules: [
-        v => !!v || "Wprowadź ilość",
-        v => v >= 0 || "Ilość musi być większa od",
-        v => v % 1 == 0 || "Nie można kupywać w ulamku"
+        v => !!v || "Enter quantity",
+          v => v >= 0 || "Quantity must be greater than",
+          v => v % 1 == 0 || "You can't buy it in fractions"
       ]
     };
   },
@@ -419,7 +419,7 @@ export default {
         )
         .then(response => {
           this.rateItem.splice(item, 1);
-          this.enableSnackbar("Dziękujemy za ocenę.", "success");
+          this.enableSnackbar("Thank you for your raiting.", "success");
         })
         .catch(function(error) {
           console.error(error);
@@ -440,7 +440,7 @@ export default {
         )
         .then(response => {
           this.rateWaiterItem.splice(item, 1);
-          this.enableSnackbar("Dziękujemy za ocenę.", "success");
+            this.enableSnackbar("Thank you for your raiting.", "success");
 
         })
         .catch(function(error) {
@@ -469,7 +469,7 @@ export default {
 
       eventBus.changeShoppingCard(this.shopingCard);
 
-      this.enableSnackbar("Dodano do koszyka.", "success");
+      this.enableSnackbar("Added to cart.", "success");
     },
     dismissDialog(event) {
       this.dialog = false;
