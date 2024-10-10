@@ -8,7 +8,7 @@
     />
 
     <v-dialog v-model="dialog" max-width="500px">
-      <v-btn slot="activator" color="primary" dark class="mb-2">Dodaj</v-btn>
+      <v-btn slot="activator" color="primary" dark class="mb-2">Add</v-btn>
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
           <span class="headline">{{ formTitle }}</span>
@@ -44,7 +44,7 @@
                     :rules="editedIndex<=0 || editedItem.Password.length>0 ? passwordRules : ''"
                     ref="editedItem.Password"
                     :type="passwordVisiblity ? 'text' : 'password'"
-                    label="Haslo"
+                    label="Password"
                     hint
                     counter
                     @click:append="passwordVisiblity = !passwordVisiblity"
@@ -53,7 +53,7 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="editedItem.FirstName"
-                    label="Imię"
+                    label="First name"
                     :rules="firstNameRules"
                     ref="editedItem.FirstName"
                     required
@@ -62,7 +62,7 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="editedItem.LastName"
-                    label="Nazwisko"
+                    label="Last name"
                     :rules="lastNameRules"
                     ref="editedItem.LastName"
                   ></v-text-field>
@@ -71,7 +71,7 @@
                   <v-select
                     v-if="editedIndex>-1"
                     :items="roles"
-                    label="Wybierz uprawnienia"
+                    label="Choose role"
                     v-model="editedItem.RoleName"
                     outline
                     :rules="roleNameRules"
@@ -85,8 +85,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="close">Anuluj</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="save">Zapisz</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="close">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -137,7 +137,7 @@
         :value="true"
         color="error"
         icon="warning"
-      >Brak danych dla klucza: {{search}}.</v-alert>
+      >No data found by key: {{search}}.</v-alert>
     </v-data-table>
   </div>
 </template>
@@ -168,9 +168,9 @@ export default {
         value: "UserName"
       },
 
-      { text: "Uprawnienia", value: "Role" },
-      { text: "Imię", value: "FirstName" },
-      { text: "Nazwisko", value: "LastName" },
+      { text: "Role", value: "Role" },
+      { text: "First name", value: "FirstName" },
+      { text: "Last name", value: "LastName" },
       { text: "", value: "Actions", sortable: false }
     ],
     dialog: false,
@@ -191,18 +191,18 @@ export default {
     },
     //Rules
     valid: true,
-    firstNameRules: [v => !!v || "Pole imię jest wymagane."],
-    lastNameRules: [v => !!v || "Pole nazwisko jest wymagane."],
+    firstNameRules: [v => !!v || "Field first name is required."],
+      lastNameRules: [v => !!v || "Field last name is required."],
     userNameRules: [
-      v => !!v || "Pole login jest wymagane.",
-      v => v.length >= 4 || "Minimalna ilość znaków to 4."
+      v => !!v || "Field login is required.",
+        v => v.length >= 4 || "Minimum number of characters is 4."
     ],
-    roleNameRules: [v => !!v || "Nadanie uprawnień jest wymagane."],
+      roleNameRules: [v => !!v || "Granting permissions is required."],
     passwordRules: [
-      v => !!v || "Pole hasło jest wymagane.",
-      v => v.length >= 6 || "Minimalna ilość znaków to 6.",
-      v => /[A-Z]+/.test(v) || "Hasło musi mieć jedną duża literę.",
-      v => /[^A-Za-z0-9]+/.test(v) || "Hasło musi posiadać znak specjalny"
+      v => !!v || "Field password is required.",
+        v => v.length >= 6 || "Minimum number of characters is 6.",
+        v => /[A-Z]+/.test(v) || "The password must have one uppercase letter.",
+        v => /[^A-Za-z0-9]+/.test(v) || "The password must have one special character"
     ]
   }),
   created() {
@@ -266,7 +266,7 @@ export default {
       const index = this.users.indexOf(item);
 
       if (
-        confirm('Czy na pewno usunąć użytkownika: "' + item.UserName + '" ?')
+        confirm('Are you sure to delete user: "' + item.UserName + '" ?')
       ) {
         this.axios
           .delete(this.url + "?id=" + item.Id)
@@ -302,7 +302,7 @@ export default {
           .then(response => {
             //Object.assign(this.users[this.editedIndex], this.editedItem);
             this.fetchData();
-            this.enableSnackbar("Dane zostały zapisane", "success");
+            this.enableSnackbar("Data has been updated", "success");
           })
           .catch(function(error) {
             console.log(error);
@@ -319,7 +319,7 @@ export default {
           .then(response => {
             this.users.push(this.editedItem);
             this.fetchData();
-            this.enableSnackbar("Użytkownik został dodany", "success");
+            this.enableSnackbar("User has benn added", "success");
           })
           .catch(function(error) {
             console.log(error);
@@ -422,7 +422,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nowa pozycja" : "Edycja pozycji";
+      return this.editedIndex === -1 ? "New item" : "Edit item";
     }
   }
 };

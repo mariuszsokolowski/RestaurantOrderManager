@@ -12,7 +12,7 @@
       :items="notifiactions"
       hide-actions
       class="elevation-1"
-      no-data-text="Brak aktywnych zgłoszeń"
+      no-data-text="No active notification"
     >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.NotificationID }}</td>
@@ -25,14 +25,14 @@
             class="white--text"
             @click="done(props.item)"
             v-if="props.item.UserAssigned !== null"
-          >Zamknij</v-btn>
+          >Close</v-btn>
 
           <v-btn
             color="deep-orange darken-1"
             class="white--text"
             @click="assign(props.item)"
             v-show="props.item.UserAssigned === null"
-          >Przypisz</v-btn>
+          >Assign</v-btn>
         </td>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">Brak danych dla klucza:.</v-alert>
@@ -60,8 +60,8 @@ export default {
         align: "left",
         value: "NotificationID"
       },
-      { text: "Lokalizacja", value: "UserSign" },
-      { text: "Data utworzenia", value: "CreateDate" },
+      { text: "Location", value: "UserSign" },
+      { text: "Created Date", value: "CreateDate" },
       { text: "", value: "Actions", sortable: false }
     ]
   }),
@@ -93,7 +93,7 @@ export default {
 
       if (
         confirm(
-          "Czy na pewno checesz zakończyć zgłoszenie nr: " +
+          "Are you sure to close notification nr: " +
             item.NotificationID +
             " ?"
         )

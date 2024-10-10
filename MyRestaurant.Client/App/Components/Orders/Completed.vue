@@ -12,7 +12,7 @@
       :items="orders"
       hide-actions
       class="elevation-1"
-      no-data-text="Brak zamówień do realizacji"
+      no-data-text="No orders available"
     >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.OrderId }}</td>
@@ -21,10 +21,10 @@
         <td>{{ props.item.UserSign.Name }}</td>
 
         <td class="justify-center">
-          <v-btn color="deep-orange darken-1" class="white--text" @click="done(props.item)">Zamknij</v-btn>
+          <v-btn color="deep-orange darken-1" class="white--text" @click="done(props.item)">Close</v-btn>
         </td>
       </template>
-      <v-alert slot="no-results" :value="true" color="error" icon="warning">Brak danych dla klucza:.</v-alert>
+      <v-alert slot="no-results" :value="true" color="error" icon="warning">No data found for key:.</v-alert>
     </v-data-table>
   </div>
 </template>
@@ -52,9 +52,9 @@ export default {
         align: "left",
         value: "Id"
       },
-      { text: "Metoda płatności", value: "PaymentMethod" },
-      { text: "Data utworzenia", value: "CreateDate" },
-      { text: "Lokalizacja", value: "UserSignId" },
+      { text: "Payment method", value: "PaymentMethod" },
+      { text: "Created date", value: "CreateDate" },
+      { text: "Location", value: "UserSignId" },
       { text: "", value: "Actions", sortable: false }
     ]
   }),
@@ -88,7 +88,7 @@ export default {
 
       if (
         confirm(
-          "Czy na pewno checesz zakończyć zamówienie nr: " + item.OrderId + " ?"
+          "Are you sure to close order nr: " + item.OrderId + " ?"
         )
       ) {
         var config = {

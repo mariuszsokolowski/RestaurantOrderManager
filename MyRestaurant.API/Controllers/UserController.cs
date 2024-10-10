@@ -40,7 +40,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie wszystkich użytkowników systemu
+        /// Get user list
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
@@ -62,7 +62,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Pobranie użytkownika po identyfikatorze
+        /// Get user
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -79,7 +79,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Dodanie użytkownika do systemu
+        /// Add user
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -160,7 +160,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Aktualizacja użytkownika
+        /// Update user
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
@@ -218,7 +218,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Usunięcie użyutkownika z systemu
+        /// Delete user
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("")]
@@ -243,7 +243,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Zablokowanie użytkownika
+        /// Block user
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -261,7 +261,7 @@ namespace MyRestaurant.API.Controllers
                 user.IsBlocked = true;
                 userRepo.Update(user);
                 userRepo.Save();
-                return Ok("Użytkownik "+model.UserName +" został zablokowany");
+                return Ok("User "+model.UserName +" has been deactivate");
 
             }
             catch (Exception e)
@@ -270,6 +270,11 @@ namespace MyRestaurant.API.Controllers
             }
 
         }
+        /// <summary>
+        /// Activate user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut("Activate")]
         public async Task<object> Activate(UserModels model)
         {
@@ -284,7 +289,7 @@ namespace MyRestaurant.API.Controllers
                 user.IsBlocked = false;
                 userRepo.Update(user);
                 userRepo.Save();
-                return Ok("Użytkownik " + model.UserName + " został odblokowany");
+                return Ok("User " + model.UserName + " has benn activate");
 
             }
             catch (Exception e)
@@ -295,7 +300,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie zdjęcia użytkownika
+        /// Get user's avatar
         /// </summary>
         /// <param name="imgName"></param>
         /// <returns></returns>
@@ -317,7 +322,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Aktualizacja zdjęcia użytkownika
+        /// Update user avatar
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -358,7 +363,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Pobranie wszystkich uprawnień systemu
+        /// Get roles list
         /// </summary>
         /// <returns></returns>
         [HttpGet("Roles")]
@@ -369,7 +374,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie wszystkich użytkowników zdefiniowanych jako Klient
+        /// Get user list wih role Clinet
         /// </summary>
         /// <returns></returns>
         [HttpGet("Clients")]

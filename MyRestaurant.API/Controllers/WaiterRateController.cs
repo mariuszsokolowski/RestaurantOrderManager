@@ -28,7 +28,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Pobranie oceny kelera dla wybranego użytkownika
+        /// Get waiter rate list
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
@@ -47,7 +47,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Anulowanie wszystkich ocen 
+        /// Cancel all waiter rates
         /// </summary>
         /// <returns></returns>
         [HttpPost("CancelAll")]
@@ -68,7 +68,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Anulowanie pojdyńczej oceny
+        /// Cancel waiter rate
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -88,12 +88,12 @@ namespace MyRestaurant.API.Controllers
                 reporWaiterRate.Update(item);
             }
             reporWaiterRate.Save();
-            return Ok("Ocenianie zostało anulowane.");
+            return Ok("Rate has been canceled");
 
         }
 
         /// <summary>
-        /// Ocena kelnera
+        /// Add waiter rate
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -113,7 +113,7 @@ namespace MyRestaurant.API.Controllers
                 reporWaiterRate.Update(item);
             }
             reporWaiterRate.Save();
-            return Ok("Dziękujemy za oceneę naszego kelnera.");
+            return Ok("Thank you for rating our waiter");
 
         }
 

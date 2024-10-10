@@ -18,7 +18,7 @@
           >Menu
             <v-icon medium>fastfood</v-icon>
           </v-btn>
-          <span>Sprawdź naszą karte dań</span>
+          <span>Check our menu</span>
         </v-tooltip>
       </router-link>
 
@@ -29,21 +29,22 @@
           slot="activator"
           style="width: 100%"
           v-show="this.$cookies.isKey('authToken')"
-        >Kelner
+        >Waiter
           <v-icon large class="bell" color="success">
             <!-- notification_important -->
             notifications_none
           </v-icon>
         </v-btn>
-        <span>Przywołaj kelnera do swojego stanowiska</span>
+        <span>Call the waiter to your station</span>
       </v-tooltip>
       <v-spacer></v-spacer>
 
       <v-menu offset-y :nudge-width="100" v-show="this.$cookies.isKey('authToken')">
         <v-toolbar-title slot="activator" v-show="$cookies.get('authRole')!=='Client'">
-          <v-btn icon style="width:100%">Zarządzaj
-            <v-icon medium>build</v-icon>
-          </v-btn>
+            <v-btn icon style="width:100%">
+                Manage
+                <v-icon medium>build</v-icon>
+            </v-btn>
         </v-toolbar-title>
 
         <v-list>
@@ -61,7 +62,7 @@
 
       <div v-show="this.$cookies.isKey('authToken')">
         <v-btn icon style="width:100%">
-          <span v-show="$cookies.get('authRole')=='Client'">Koszyk</span>
+          <span v-show="$cookies.get('authRole')=='Client'">Cart</span>
           <v-badge right @click.native="openShopingCard" overlap color="success">
             <span slot="badge">{{ counter }}</span>
             <v-icon medium>shopping_cart</v-icon>
@@ -87,7 +88,7 @@
     >
       <v-card>
         <v-toolbar dark color="primary">
-          <v-toolbar-title>Koszyk</v-toolbar-title>
+          <v-toolbar-title>Cart</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon dark @click.native="shopingCardDialog = false">
@@ -106,7 +107,7 @@
                   :items="shopingCard"
                   hide-actions
                   class="elevation-1"
-                  no-data-text="Twój koszyk jest pusty!"
+                  no-data-text="Your cart is empty!"
                   d-flex
                 >
                   <template slot="items" slot-scope="props">
@@ -136,14 +137,14 @@
                     :value="true"
                     color="error"
                     icon="warning"
-                  >Brak danych dla klucza: .</v-alert>
+                  >No data found with key: .</v-alert>
                 </v-data-table>
               </v-flex>
 
               <v-flex xs12 sm6 md3>
                 <v-card class="card" d-flex style="width:100%;text-align:center">
                   <v-card-title primary-title>
-                    <h3 class="text-md-center headline mb-0 font-weight-black">Podsumowanie</h3>
+                    <h3 class="text-md-center headline mb-0 font-weight-black">Total</h3>
                     <div style="height:100%;width:100%;background-color:green">
                       <v-divider></v-divider>
                     </div>
@@ -151,7 +152,7 @@
 
                   <h2
                     class="text-md-center headline mb-0 font-weight-light font-italic"
-                  >Do zapłaty: {{orderPrice}} zł</h2>
+                  >To be paid: {{orderPrice}} zł</h2>
                   <div style="height:100%;width:100%;background-color:green">
                     <v-divider></v-divider>
                   </div>
@@ -160,15 +161,15 @@
                       :items="ClientLocations"
                       v-model="ActualClient"
                       v-show="$cookies.get('authRole')!=='Client'"
-                      label="Stanowisko"
+                      label="Position"
                       outline
                       :rules="userRules"
                     ></v-select>
                   </v-form>
 
                   <v-card-actions style="align-items: center;justify-content: center;">
-                    <v-btn flat color="green" @click.native="orderStepOne">Potwierdź</v-btn>
-                    <v-btn flat color="red" @click.native="cancleOrder">Anuluj</v-btn>
+                    <v-btn flat color="green" @click.native="orderStepOne">Accept</v-btn>
+                    <v-btn flat color="red" @click.native="cancleOrder">Close</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -181,20 +182,20 @@
     <v-layout row justify-center>
       <v-dialog v-model="dialog1" scrollable max-width="300px">
         <v-card>
-          <v-card-title>Wybierz sposób zapłaty</v-card-title>
+          <v-card-title>Choose payment method</v-card-title>
           <v-divider></v-divider>
           <v-card-text style="height: 300px;">
             <v-radio-group v-model="paymentMethod" column>
-              <v-radio label="Gotówka" v-bind:value="paymentMethodEnum.Cash"></v-radio>
+              <v-radio label="Cash" v-bind:value="paymentMethodEnum.Cash"></v-radio>
 
-              <v-radio label="Karta" v-bind:value="paymentMethodEnum.Card"></v-radio>
+              <v-radio label="Card" v-bind:value="paymentMethodEnum.Card"></v-radio>
 
               <v-radio label="Blik" v-bind:value="paymentMethodEnum.Blik"></v-radio>
             </v-radio-group>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn color="blue darken-1" flat @click.native="order">Dalej</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="order">Next</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -247,27 +248,27 @@ export default {
         role: "Waiter"
       },
       {
-        title: "Zamówienia",
+        title: "Orders",
         route: "/Orders",
         role: "Cook"
       },
       {
-        title: "Gotowe zamówienia",
+        title: "Ready orders",
         route: "/Orders/Completed",
         role: "Waiter"
       },
       {
-        title: "Użytkownicy",
+        title: "Users",
         route: "/Users",
         role: "Administrator"
       },
       {
-        title: "Powiadomienia",
+        title: "Notification",
         route: "/Notification",
         role: "Waiter"
       },
       {
-        title: "Raporty",
+        title: "Reports",
         route: "/Raports",
         role: "Administrator"
       }
@@ -279,16 +280,16 @@ export default {
         value: "Avatar",
         sortable: false
       },
-      { text: "Nazwa", value: "Name" },
-      { text: "Ilość", value: "Quantity" },
-      { text: "Cena jednostkowa", value: "Price" },
-      { text: "Łącznie pozycja", value: "TotalLine" },
+      { text: "Name", value: "Name" },
+      { text: "Quantity", value: "Quantity" },
+      { text: "Price", value: "Price" },
+      { text: "Total line", value: "TotalLine" },
       { text: "", value: "" }
     ],
 
     //Rules
     valid: true,
-    userRules: [v => !!v || "Wybierz miejsce zamówienia."]
+    userRules: [v => !!v || "Choose location to your order."]
   }),
 
   methods: {
@@ -306,7 +307,7 @@ export default {
     },
     deleteItem(item) {
       var index = this.shopingCard.indexOf(item);
-      if (confirm("Czy na pewno chcesz usunąć poyzcję: " + item.Name + "?")) {
+      if (confirm("Are you sure to delete item: " + item.Name + "?")) {
         this.shopingCard.splice(index, 1);
       }
     },
@@ -321,7 +322,7 @@ export default {
     },
     order() {
       if (this.paymentMethod == "") {
-        alert("Wprowadź sposób zapłaty");
+        alert("Choose payment method");
         return;
       }
       this.shopingCard[0].paymentMethod = this.paymentMethod;
@@ -362,7 +363,7 @@ export default {
         });
     },
     cancleOrder() {
-      if (confirm("Chcesz anulować całe zamówienie?")) {
+      if (confirm("Do you want to close order?")) {
         this.shopingCard = [];
       }
     },
@@ -434,8 +435,6 @@ export default {
       }
       if (this.shopingCard.length > 0) {
         var test = JSON.parse(this.$cookies.get("shopingCard"));
-        console.log("test", test[0]);
-        console.log("Cookies", this.shopingCard[0]);
         console.log("Cookies", this.$cookies.get("shopingCard"));
       }
       return sum;
@@ -463,7 +462,6 @@ export default {
             val[i].Quantity == 1 ||
             val[i].Quantity == 0
           ) {
-            console.log("zamiana");
             // val[i].Quantity=1;
           }
         }

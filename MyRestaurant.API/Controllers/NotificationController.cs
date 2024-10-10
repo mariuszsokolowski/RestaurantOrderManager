@@ -40,7 +40,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie zgłoszeń
+        /// Get notification list unassigned or assigned to user
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
@@ -58,7 +58,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Przywołanie kelnera
+        /// Calling the waiter
         /// </summary>
         /// <returns></returns>
         [HttpPost("CallWaiter")]
@@ -79,7 +79,7 @@ namespace MyRestaurant.API.Controllers
                 repoNotification.Insert(entity);
                 repoNotification.Save();
                 SendNewNotificationInfo();
-                return Ok("Kelner został wezwany.");
+                return Ok("The waiter was called");
             }
             catch(Exception e)
             {
@@ -90,7 +90,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Przypisanie do zgłoszenia
+        /// Assign user to notification
         /// </summary>
         /// <returns></returns>
         [HttpPost("Assign")]
@@ -108,13 +108,13 @@ namespace MyRestaurant.API.Controllers
                     return NoContent();
 
                 if (entity.UserAssigned != null)
-                    return NotFound("Zgłoszenie zostało już przypisane");
+                    return NotFound("The notification has already been assigned");
 
                 entity.AssignedDate = DateTime.Now;
                 entity.UserAssigned = userID;
                 repoNotification.Update(entity);
                 repoNotification.Save();
-                return Ok("Zgłoszenie nr " + entity.NotificationID +" zostało przypisane.");
+                return Ok("Notification no. " + entity.NotificationID + " has been assigned");
             }
             catch (Exception e)
             {
@@ -125,7 +125,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Zakończenie zgłoszenia
+        /// Completion of the notifcation
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -165,7 +165,7 @@ namespace MyRestaurant.API.Controllers
                         
                         dbTransaction.Commit();
                         SendWaiterRateInfo();
-                        return Ok("Zgłoszenie nr: " + model.NotificationID + " zostało zamknięte.");
+                        return Ok("Notification no.:" + model.NotificationID + " has been closed");
                     }
 
                     catch (Exception e)

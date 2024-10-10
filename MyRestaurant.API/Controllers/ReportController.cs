@@ -69,7 +69,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Pobranie danych do raportu sprzedaży
+        /// Get sales data for report
         /// </summary>
         /// <returns></returns>
         [HttpGet("Sale")]
@@ -98,7 +98,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie danych do raportu pracowników
+        /// Get data to employee report
         /// </summary>
         /// <returns></returns>
         [HttpGet("Employee")]
@@ -135,7 +135,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Pobranie danych rocznej sprzedaży
+        /// Get year sale data for report
         /// </summary>
         /// <returns></returns>
         [HttpGet("YearSale")]

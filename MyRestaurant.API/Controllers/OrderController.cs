@@ -60,7 +60,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie zamówień
+        /// Get orders list
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
@@ -75,7 +75,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie uruchomioncyh zamówień (zamówienia dla kucharaza)
+        /// Get order list where closeDate is null
         /// </summary>
         /// <returns></returns>
         [HttpGet("Running")]
@@ -89,7 +89,7 @@ namespace MyRestaurant.API.Controllers
 
 
             //var model = mapper.Map<List<Order>, List<OrderModels>>(result.ToList());
-            //Tutaj trzeba ogarnąć lazy loading
+            //LazyLoading?
             foreach (var item in result)
             {
 
@@ -100,7 +100,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie zamówień do wydania (zamówienia dla kelnera)
+        /// Get completed order list.
         /// </summary>
         /// <returns></returns>
         [HttpGet("Completed")]
@@ -115,7 +115,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie zamówienia po identyfikatorze
+        /// Get order list
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -132,7 +132,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Zakończenie zamówienia
+        /// Completed order
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -152,7 +152,7 @@ namespace MyRestaurant.API.Controllers
                 repoOrder.Save();
                 SendDoneOrderInfo();
 
-                return Ok("Zamówienie nr: " + model.OrderId + " zostało zakończone");
+                return Ok("Order no.: " + model.OrderId + " has been completed");
 
             }
             catch
@@ -165,7 +165,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Zakończenie zamówienia przez kucharza
+        /// Close order
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -218,7 +218,7 @@ namespace MyRestaurant.API.Controllers
                 }
 
                
-                return Ok("Zamówienie nr: " + model.OrderId + " zostało zamknięte");
+                return Ok("Order no.: " + model.OrderId + " has been closed");
 
             }
             catch
@@ -233,7 +233,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Dodanie zamówienia
+        /// Add order
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -295,7 +295,7 @@ namespace MyRestaurant.API.Controllers
                     repoOrderLine.Save();
                     dbTransaction.Commit();
                     SendNewOrderInfo();
-                    return Ok("Zamówienie nr: " + eOrder.OrderId + " zostało przyjęte do realizacji.");
+                    return Ok("Order no.: " + eOrder.OrderId + " has been accepted for execution");
                 }
 
                 catch (Exception e)
@@ -309,7 +309,7 @@ namespace MyRestaurant.API.Controllers
 
 
         /// <summary>
-        /// Dodanie zamówienia za klienta
+        /// Add order for a customer
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -375,7 +375,7 @@ namespace MyRestaurant.API.Controllers
                     repoOrderLine.Save();
                     dbTransaction.Commit();
                     SendNewOrderInfo();
-                    return Ok("Zamówienie nr: " + eOrder.OrderId + " zostało przyjęte do realizacji.");
+                    return Ok("Order no.: " + eOrder.OrderId + " has been accepted for execution");
                 }
 
                 catch (Exception e)
@@ -388,7 +388,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Aktualziacja zamówienia
+        /// Update order
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
