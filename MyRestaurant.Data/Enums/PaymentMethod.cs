@@ -12,8 +12,8 @@ namespace MyRestaurant.Data.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum PaymentMethod
     {
-        Gotówka=1,
-        Karta=2,
+        Cash=1,
+        Card=2,
         Blik=3
     }
 }
