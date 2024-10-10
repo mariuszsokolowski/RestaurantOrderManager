@@ -92,7 +92,7 @@ namespace MyRestaurant.API.Fakers
 
             var faker = new Faker<Order>()
                     .RuleFor(o => o.DocTotal, f => f.Random.Int(1, 99999))
-                    .RuleFor(o => o.PaymentMethod, f => Data.Enums.PaymentMethod.Gotówka)
+                    .RuleFor(o => o.PaymentMethod, f => Data.Enums.PaymentMethod.Cash)
                     .RuleFor(o => o.Cancel, isCancel)
                     .RuleFor(o => o.CreateDate, f => DateTime.Now)
                     .RuleFor(o => o.Close, isClosed)

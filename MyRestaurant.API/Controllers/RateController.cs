@@ -32,7 +32,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Pobranie danych do oceny Menu
+        /// Get menu rate list
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
@@ -52,7 +52,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Anulowanie wszystkich ocen danego klienta
+        /// Cancel all menu rate
         /// </summary>
         /// <returns></returns>
         [HttpPost("CancelAll")]
@@ -73,7 +73,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// Anulowanie pojdyńczej oceny Menu
+        /// Cancel menu
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -98,7 +98,7 @@ namespace MyRestaurant.API.Controllers
         }
 
         /// <summary>
-        /// OCena Menu
+        /// Rate menu
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

@@ -34,7 +34,7 @@ namespace MyRestaurant.API.Filters
 
 
             
-            context.Result = new BadRequestObjectResult("Nie masz wystarczająych uprawnień.");
+            context.Result = new BadRequestObjectResult("You do not have permissions");
         }
 
     
