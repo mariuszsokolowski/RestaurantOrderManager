@@ -93,5 +93,5 @@ dotnet run seed=SeedData
 ## :rocket: Future Improvements
 - [ ] Update app from .Net Core 2.1 to .NET 8
 - [x] CLI Feature for Inserting Random Data
-- [ ] Change language (including comments) to EN
+- [x] Change language (including comments) to EN
 - [ ] Add feature to multi language
