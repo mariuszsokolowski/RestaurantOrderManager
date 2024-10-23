@@ -1,0 +1,35 @@
+name: Dotnet build CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '2.x'
+
+    - name: Build MyRestaurant.API
+      run: |
+        cd MyRestaurant.API
+        dotnet build --configuration Release
+
+    - name: Build MyRestaurant.Data
+      run: |
+        cd MyRestaurant.Data
+        dotnet build --configuration Release
+
+    - name: Build MyRestaurant.Client
+      run: |
+        cd MyRestaurant.Client
+        dotnet build --configuration Release
