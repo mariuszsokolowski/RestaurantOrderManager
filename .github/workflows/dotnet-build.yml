@@ -19,14 +19,14 @@ jobs:
       with:
         dotnet-version: '2.x'
 
-    - name: Build MyRestaurant.API
-      run: |
-        cd MyRestaurant.API
-        dotnet build --configuration Release
-
     - name: Build MyRestaurant.Data
       run: |
         cd MyRestaurant.Data
+        dotnet build --configuration Release
+
+    - name: Build MyRestaurant.API
+      run: |
+        cd MyRestaurant.API
         dotnet build --configuration Release
 
     - name: Build MyRestaurant.Client
