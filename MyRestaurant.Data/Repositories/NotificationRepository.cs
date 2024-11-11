@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Data.Repositories
 {
-    public class NotificationRepository : GenericRepository<Notification>
+    public sealed class NotificationRepository : GenericRepository<Notification>
     {
-        UserRepository repoUser;
+        private readonly UserRepository _repoUser;
         public NotificationRepository(DBContext context) : base(context)
         {
-            repoUser = new UserRepository(context);
+            _repoUser = new UserRepository(context);
         }
 
         public override IQueryable<Notification> All
@@ -23,7 +23,7 @@ namespace MyRestaurant.Data.Repositories
                 var result = this.dbSet;
                 foreach (var item in result)
                 {
-                    item.UserSign = repoUser.All.Where(x => x.Id == item.UserSignId).FirstOrDefault();
+                    item.UserSign = _repoUser.All.Where(x => x.Id == item.UserSignId).FirstOrDefault();
                 }
                 return result;
 

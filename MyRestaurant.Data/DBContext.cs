@@ -6,18 +6,14 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace MyRestaurant.Data
 {
 
-     public class DBContext :
-          IdentityDbContext<User, Role, string, IdentityUserClaim<string>,
-    UserRole, IdentityUserLogin<string>,
-    IdentityRoleClaim<string>, IdentityUserToken<string>>
-
-    //IdentityDbContext<IdentityUser>/*<Microsoft.AspNetCore.Identity.IdentityUser, Microsoft.AspNetCore.Identity.IdentityRole, string>*/
+    public class DBContext :
+         IdentityDbContext<User, Role, string, IdentityUserClaim<string>,
+   UserRole, IdentityUserLogin<string>,
+   IdentityRoleClaim<string>, IdentityUserToken<string>>
 
     {
         public DBContext(DbContextOptions<DBContext> options)
             : base(options) { }
-        //public DBContext() : base() { }
-
 
         DbSet<Menu> Menu { get; set; }
         DbSet<Order> Order { get; set; }

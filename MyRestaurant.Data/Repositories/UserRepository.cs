@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MyRestaurant.Data.Repositories
 {
-    public class UserRepository : GenericRepository<User>
+    public sealed class UserRepository : GenericRepository<User>
     {
         public UserRepository(DBContext context) : base(context)
         { }

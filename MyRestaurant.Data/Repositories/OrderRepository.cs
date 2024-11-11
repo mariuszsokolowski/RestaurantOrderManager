@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MyRestaurant.Data.Repositories
 {
-    public class OrderRepository : GenericRepository<Order>
+    public sealed class OrderRepository : GenericRepository<Order>
     {
-        UserRepository repoUser;
+        private readonly UserRepository _repoUser;
         public OrderRepository(DBContext context) : base(context)
         {
 
-            repoUser = new UserRepository(context);
+            _repoUser = new UserRepository(context);
         }
 
         public override IQueryable<Order> All
@@ -18,7 +18,7 @@ namespace MyRestaurant.Data.Repositories
             get { var result=  this.dbSet.Include(x=>x.OrderLines)/*.Include(x=>x.UserSign)*/;
                     foreach(var item in result)
                 {
-                    item.UserSign = repoUser.All.Where(x => x.Id == item.UserSignId).FirstOrDefault();
+                    item.UserSign = _repoUser.All.Where(x => x.Id == item.UserSignId).FirstOrDefault();
                 }
                 return result;
                 }

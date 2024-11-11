@@ -8,9 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MyRestaurant.Data.Repositories
 {
-    public class OrderLineRepository : GenericRepository<OrderLine>
+    public sealed class OrderLineRepository : GenericRepository<OrderLine>
     {
-        
         public OrderLineRepository(DBContext context) : base(context)
         {
         }

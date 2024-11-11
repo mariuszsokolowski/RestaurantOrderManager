@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Data.Repositories
 {
-    public class OrderRateRepository : GenericRepository<OrderRate>
+    public sealed class OrderRateRepository : GenericRepository<OrderRate>
     {
 
         public OrderRateRepository(DBContext context) : base(context)
