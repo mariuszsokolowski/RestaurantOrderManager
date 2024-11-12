@@ -8,7 +8,7 @@ using MyRestaurant.Data.Entities;
 
 namespace MyRestaurant.API.Automapper
 {
-    public class AutomapperProfile : Profile
+    internal sealed class AutomapperProfile : Profile
     {
         public AutomapperProfile()
         {

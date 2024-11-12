@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.API.Models
 {
-    public class OrderLineModels
+    public sealed class OrderLineModels
     {
 
         

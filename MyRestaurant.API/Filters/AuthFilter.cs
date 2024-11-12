@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.API.Filters
 {
-    public class AuthFilter : ResultFilterAttribute
+    internal sealed class AuthFilter : ResultFilterAttribute
     {
         private readonly string _name;
    

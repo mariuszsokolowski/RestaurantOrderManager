@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.API.SignalR
 {
-    public class RateHub : Hub
+    public sealed class RateHub : Hub
     {
         //public async Task Rate(string data)
         //{

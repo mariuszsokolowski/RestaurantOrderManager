@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.API.Fakers
 {
-    public class Faker : IDisposable
+    internal sealed class Faker : IDisposable
     {
         #region Fields
         private DBContext _context;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.API.SignalR
 {
-    public class OrderHub : Hub
+    public sealed class OrderHub : Hub
     {
     }
 }

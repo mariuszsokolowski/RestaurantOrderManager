@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.API.Models
 {
-    public class UserModels
+    public sealed class UserModels
     {
         public string UserId { get; set; }
         public string UserName {get;set;}

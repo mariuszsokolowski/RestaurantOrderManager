@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace MyRestaurant.API.Models
 {
-    public class MenuModels
+    public sealed class MenuModels
     {
       
             [Key]
