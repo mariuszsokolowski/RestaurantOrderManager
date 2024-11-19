@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using MyRestaurant.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using RestaurantOrderManager.Data.Entities;
 
-namespace MyRestaurant.Data
+namespace RestaurantOrderManager.Data
 {
 
     public class DBContext :

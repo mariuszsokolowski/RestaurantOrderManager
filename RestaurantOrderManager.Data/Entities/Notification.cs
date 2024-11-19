@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyRestaurant.Data.Entities
+namespace RestaurantOrderManager.Data.Entities
 {
     public class Notification
     {

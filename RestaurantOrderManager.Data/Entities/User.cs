@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
-namespace MyRestaurant.Data.Entities
+namespace RestaurantOrderManager.Data.Entities
 {
 
 

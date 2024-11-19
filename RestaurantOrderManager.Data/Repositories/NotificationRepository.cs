@@ -1,34 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyRestaurant.Data.Entities;
+﻿using RestaurantOrderManager.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyRestaurant.Data.Repositories
+namespace RestaurantOrderManager.Data.Repositories
 {
-    public sealed class WaiterRateRepository : GenericRepository<WaiterRate>
+    public sealed class NotificationRepository : GenericRepository<Notification>
     {
         private readonly UserRepository _repoUser;
-        public WaiterRateRepository(DBContext context) : base(context)
+        public NotificationRepository(DBContext context) : base(context)
         {
             _repoUser = new UserRepository(context);
         }
-        public override IQueryable<WaiterRate> All
+
+        public override IQueryable<Notification> All
         {
             get
             {
                 var result = this.dbSet;
                 foreach (var item in result)
                 {
-                    item.Waiter = _repoUser.All.Where(x => x.Id == item.WaiterID).FirstOrDefault();
+                    item.UserSign = _repoUser.All.Where(x => x.Id == item.UserSignId).FirstOrDefault();
                 }
                 return result;
 
             }
-
         }
-
     }
+
 }
+

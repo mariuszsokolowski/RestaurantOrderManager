@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace MyRestaurant.Data.Repositories
+namespace RestaurantOrderManager.Data.Repositories
 {
     public abstract class GenericRepository<T> : IDisposable where T : class
     {

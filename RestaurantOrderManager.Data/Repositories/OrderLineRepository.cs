@@ -1,12 +1,12 @@
-﻿using MyRestaurant.Data.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RestaurantOrderManager.Data.Entities;
 
-namespace MyRestaurant.Data.Repositories
+namespace RestaurantOrderManager.Data.Repositories
 {
     public sealed class OrderLineRepository : GenericRepository<OrderLine>
     {

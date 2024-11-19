@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyRestaurant.Data.Enums
+namespace RestaurantOrderManager.Data.Enums
 {
 
     [JsonConverter(typeof(StringEnumConverter))]

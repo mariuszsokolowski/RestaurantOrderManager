@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyRestaurant.Data.Entities;
+using RestaurantOrderManager.Data.Entities;
 using System.Linq;
 
-namespace MyRestaurant.Data.Repositories
+namespace RestaurantOrderManager.Data.Repositories
 {
     public sealed class MenuRepository : GenericRepository<Menu>
     {

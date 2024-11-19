@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyRestaurant.Data.Entities
+namespace RestaurantOrderManager.Data.Entities
 {
     public class Order
     {
