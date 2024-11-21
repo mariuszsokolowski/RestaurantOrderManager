@@ -9,24 +9,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['2.x', '8.x'] 
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Set up .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '2.x'
+        dotnet-version: ${{ matrix.dotnet-version }}
 
-    - name: Build MyRestaurant.Data
+    - name: Build RestaurantOrderManager.Data
       run: |
-        cd MyRestaurant.Data
+        cd RestaurantOrderManager.Data
         dotnet build --configuration Release
 
-    - name: Build MyRestaurant.API
+    - name: Build RestaurantOrderManager.API
       run: |
-        cd MyRestaurant.API
+        cd RestaurantOrderManager.API
         dotnet build --configuration Release
 
     - name: Build MyRestaurant.Client
